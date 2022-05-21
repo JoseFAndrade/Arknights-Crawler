@@ -16,4 +16,5 @@ A program that will crawler through the Gamepress arknights wiki and scrape all 
  - Big Functions: It's very hard for me to be able to break down the code in certain functions. I don't have a full understanding of how the best way it is to split up a function that contains many lines, but does such a simple thing. 
  - Bad practices with xpath: I ended up indexing a lot of the html with xpath specific tags which in my opinion are not the best way to deal with the problem. If a modification happens to the website it can easily mess up the xpath. I started to apply a better method half way through the project. 
 # Future features
+ - Revise my code. Go through every file and start figuring out what areas have bad practices and then go through and start applying fixes to them. 
  - Want to create another project that turns all of the information gathered here into an API. 
