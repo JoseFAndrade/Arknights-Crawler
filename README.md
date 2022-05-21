@@ -8,7 +8,6 @@ A program that will crawler through the Gamepress arknights wiki and scrape all 
  - MongoDb: I used this to insert information into my database. 
  - DataGrip: Allows me to easily create new tables as well as quickly changing values within a table to check for certain errors.
  - XAMPP: Contains a very easy way to create your own SQL (MariaDB) database on your computer. I used this to host my own server.
- - 
 
 # Why I created this project
  - I wanted to put some web scraping knowledge that I had obtain in college through one of my courses, Compsci 121: Information Retrieval. 
