@@ -25,6 +25,7 @@ public class Unit {
     private String trait;
     private String unitImage;
 
+    //TODO have this in my code somewhere but i need to double check this
     //TODO MISSING ATTACK Range
 
     private SkillManager skillManager = null;
@@ -178,6 +179,8 @@ public class Unit {
         return name;
     }
 
+
+    //TODO Need to rewrite this because not all of the units will contain a SkillBean list (2* units don't have skills)
     /*
     This returns a list of Skill Bean List where the size is equal to the number of skills (Max 3).
     Each Skill has their own list of Skill Beans.

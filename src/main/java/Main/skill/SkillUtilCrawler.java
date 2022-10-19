@@ -82,7 +82,7 @@ public class SkillUtilCrawler {
 
     //where the webElement coming in will be the div of the specific Main.skill.Skill #
     static public List<String> getUtilizationTypeInfo(WebElement driver){
-        List<String> utilization = new ArrayList<>();
+        //List<String> utilization = new ArrayList<>();
         //todo make sure to add this to the constants
         WebElement skillUtilizationWebElement = driver.findElement(By.className("skill-duration"));
         List<WebElement> skillChargesPerLevel = skillUtilizationWebElement.findElements(By.className("skill-description-rem"));
@@ -117,6 +117,7 @@ public class SkillUtilCrawler {
         return skillDurations;
     }
 
+    /*
     static public List<String> getSkillDurationInfo(WebDriver driver){
         List<String> skillDurations = new ArrayList<>();
         WebElement duration = driver.findElement(By.xpath("//div[@class='" + Constants.skillDuration + "']"));
@@ -137,6 +138,7 @@ public class SkillUtilCrawler {
         }
         return skillEffects;
     }
+    */
 
     static public List<String> getSkillEffectInfo(WebElement driver){
         List<String> skillEffects = new ArrayList<>();
@@ -159,7 +161,7 @@ public class SkillUtilCrawler {
         WebElement skillActivation = driver.findElement(By.xpath("//div[@class='" + Constants.skillActivation + "']"));
         return skillActivation.findElement(By.className("effect-description")).getText();
     }
-
+    /*
     static public String getSpChargeType(WebDriver driver){
         WebElement spChargeType = driver.findElement(By.xpath("//div[@class='" + Constants.spChargeType + "' ]"));
 
@@ -170,4 +172,5 @@ public class SkillUtilCrawler {
         WebElement skillActivation = driver.findElement(By.xpath("//div[@class='" + Constants.skillActivation + "']"));
         return skillActivation.findElement(By.className("effect-description")).getText();
     }
+     */
 }

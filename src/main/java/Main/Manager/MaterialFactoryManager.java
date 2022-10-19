@@ -5,7 +5,6 @@ import Main.util.MaterialFactory;
 import java.util.*;
 
 public class MaterialFactoryManager {
-    //private List<MaterialFactory> materialList;
     private Map<String,MaterialFactory> materialMap = new HashMap<>();
 
     public MaterialFactoryManager(MaterialFactory... materialFactories)  {

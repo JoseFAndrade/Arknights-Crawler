@@ -16,6 +16,11 @@ import java.util.List;
 
 public class MaterialCostUtilCrawler {
 
+    /**
+     * This function seems to return the Elite Upgrade Cost for the unit. If not found then it will not do it.
+     * @param driver
+     * @return
+     */
     static public EliteMaterialCostManager obtainEliteUpgradeCost(WebDriver driver){
         WebElement eliteUpgradeTable = null;
         try{
@@ -25,8 +30,10 @@ public class MaterialCostUtilCrawler {
             System.err.println("Unit seems to not have Elite Upgrade Cost Table.");
             return null;
         }
+
         EliteMaterialCostManager eliteMaterialCostManager = new EliteMaterialCostManager();
 
+        //seems to run for the amount of elite that it goes up to
         List<WebElement> tableRows = eliteUpgradeTable.findElements(By.tagName("tr"));
         for(int i = 1; i < tableRows.size(); i++){
             List<WebElement> columns = tableRows.get(i).findElements(By.tagName("td"));
@@ -50,11 +57,14 @@ public class MaterialCostUtilCrawler {
         return eliteMaterialCostManager;
     }
 
-    //todo create the skillMaterialCost class in here at some point
+    /**
+     * This function will obtain the SKill Material Cost for the 1 - 7 Skills. The Mastery 1 - 3 will be done in another function.
+     * @param driver The WebDriver that is currently within the unit page.
+     * @return
+     */
     static public SkillMaterialCost obtainRegularSkillUpgrade(WebDriver driver){
         //where the info will be stored
         SkillMaterialCost skillMaterialCost = new SkillMaterialCost();
-        //this function will go through the first table and obtain information out of it
         WebElement upgradeCostDiv = null;
         try{
             //upgradeCostTable = driver.findElement(By.className("upgrade-cost-table"));
@@ -64,21 +74,22 @@ public class MaterialCostUtilCrawler {
             System.err.println("Unit does not seem to have an upgrade skill table.");
             return null;
         }
-        List<WebElement> tables = upgradeCostDiv.findElements(By.className("table-1"));
-        List<WebElement> tableRows = tables.get(0).findElements(By.xpath(".//tr"));
-        //we can ignore the first element because those are the headers
+
+        //Selecting all of the tr elements within the Skill Upgrade Costs First Table
+        List<WebElement> tableRows = upgradeCostDiv.findElements(By.xpath(".//*[contains(@class,'table-1')]/tbody/tr"));
 
         for(int i = 1; i < tableRows.size(); i++){
             List<WebElement> columns = tableRows.get(i).findElements(By.xpath(".//td"));
             //we are going to have 3 items in that column
-            //first one is the level base to increasement
+            //first one is the level base to increment
             String levelUpgrade = columns.get(0).getAttribute("textContent").trim();
             //second one is the Level requisite and the rarity
             String levelRequisite = columns.get(1).getAttribute("textContent").trim();
             String levelURl = columns.get(1).findElement(By.tagName("img")).getAttribute("src");
-            //third one is the div that contains the element so im handling this in another function
-            List<WebElement> materialDivList = columns.get(2).findElements(By.className("material-cell"));
-            MaterialFactoryManager materialFactoryManager = sortThroughMaterials(materialDivList);
+            //third one is the div that contains the Materials so im handling this in another function
+            List<WebElement> materialElements = columns.get(2).findElements(By.className("material-cell"));
+            MaterialFactoryManager materialFactoryManager = sortThroughMaterials(materialElements);
+
             skillMaterialCost.addSkillCost(levelUpgrade,levelRequisite,levelURl,materialFactoryManager);
         }
         return skillMaterialCost;
@@ -97,60 +108,84 @@ public class MaterialCostUtilCrawler {
         }
      */
 
+    /**
+     * This function is similar to SkillMaterialCost except this function is created for Mastery Material Cost. Some of
+     * the columns change here and we have to accommodate that here.
+     * @param driver The driver is just the driver for the unit page.
+     * @return Will return a SkillMasteryMaterialCostManager with all of the information for the skills.
+     */
     static public SkillMasteryMaterialCostManager obtainMasterySkillUpgrade(WebDriver driver){
         //this function will go through the second table and obtain information out of it
-        List<WebElement> tableRows = null;
         try{
-            WebElement upgradeCostDiv = driver.findElement(By.xpath(".//h2[contains(text(), 'Skill Upgrade Costs')]/following-sibling::div"));
             //the table is called table-2 so we can easily be able to tell if it exists or not. We are also able to just extract all the tr info in here
-            tableRows = upgradeCostDiv.findElement(By.className("table-2")).findElements(By.xpath(".//tr"));
+            SkillMasteryMaterialCostManager skillMasteryMaterialCostManager = new SkillMasteryMaterialCostManager();
+            SkillMasteryMaterialCost skill = null;
+
+            List<WebElement> tableRows = driver.findElements(By.xpath(".//*[contains(@class,'table-2')]/tbody/tr"));
+
+            for(int i = 1; i < tableRows.size(); i++){
+                List<WebElement> columns = tableRows.get(i).findElements(By.tagName("td"));
+                //depending on the column size these indexes will change -> default size will be 3 column size
+                int levelIndex = 0;
+                int requisitesIndex = 1;
+                int materialsIndex = 2;
+
+                if(columns.size() == 4) //means that we moved on to the next skill so add in the previous skill to the Manager
+                {
+                    //to prevent the first skill to be added
+                    if(skill != null)
+                        skillMasteryMaterialCostManager.addSkillMastery(skill);
+                    skill = new SkillMasteryMaterialCost();
+                    levelIndex++;
+                    requisitesIndex++;
+                    materialsIndex++;
+                }
+
+                //getting icon url
+                String mIconUrl = columns.get(levelIndex).findElement(By.tagName("img")).getAttribute("src").trim();
+
+                //within the requisite column
+                WebElement requisiteElement = columns.get(requisitesIndex);
+                String requisiteLevel = requisiteElement.findElement(By.className("level-cell")).getText().trim();
+                String requisiteRarityUrl = requisiteElement.findElement(By.className("level-image-cell"))
+                        .findElement(By.tagName("img")).getAttribute("src").trim();
+                String requisiteUpgradeTime = requisiteElement.findElement(By.className("time-cell")).getText().trim();
+
+                //creating a materialFactoryManager
+                List<WebElement> materialElements = columns.get(materialsIndex).findElements(By.xpath(".//div[contains(@class,'material-cell')]"));
+                MaterialFactoryManager materialFactoryManager = sortThroughMaterials( materialElements );
+                skill.addSkillCost(mIconUrl,requisiteLevel,requisiteRarityUrl,requisiteUpgradeTime,materialFactoryManager);
+            }
+            //todo fix this code so it isnt this messy
+            skillMasteryMaterialCostManager.addSkillMastery(skill);
+            return skillMasteryMaterialCostManager;
         }
         catch (Exception e){
             System.err.println("This unit does not seem to have skill mastery table.");
+            e.printStackTrace();
             return new SkillMasteryMaterialCostManager();
         }
-        SkillMasteryMaterialCostManager skillMasteryMaterialCostManager = new SkillMasteryMaterialCostManager();
-        //we can ignore the first element because those are the headers
-        SkillMasteryMaterialCost skill = null;
-        for(int i = 1; i < tableRows.size(); i++){
-            List<WebElement> columns = tableRows.get(i).findElements(By.tagName("td"));
-            int levelIndex = -1;
-            int requisitesIndex = -1;
-            int materialsIndex = -1;
-            if(columns.size() == 4) //means that we moved on to the next skill so add in the previous skill to the Manager
-            {
-                if(skill != null)
-                    skillMasteryMaterialCostManager.addSkillMastery(skill);
-                skill = new SkillMasteryMaterialCost();
-                levelIndex = 1;
-                requisitesIndex = 2;
-                materialsIndex = 3;
-            }
-            else {
-                levelIndex = 0;
-                requisitesIndex = 1;
-                materialsIndex = 2;
-            }
-
-            String mIconUrl = columns.get(levelIndex).findElement(By.tagName("img")).getAttribute("src").trim();
-            WebElement requisiteElement = columns.get(requisitesIndex);
-            String requisiteLevel = requisiteElement.findElement(By.className("level-cell")).getText().trim();
-            String requisiteRarityUrl = requisiteElement.findElement(By.className("level-image-cell"))
-                    .findElement(By.tagName("img")).getAttribute("src").trim();
-            String requisiteUpgradeTime = requisiteElement.findElement(By.className("time-cell")).getText().trim();
-
-            MaterialFactoryManager materialFactoryManager = sortThroughMaterials(columns.get(materialsIndex).findElements(By.className("material-cell")));
-            skill.addSkillCost(mIconUrl,requisiteLevel,requisiteRarityUrl,requisiteUpgradeTime,materialFactoryManager);
-        }
-        //todo fix this code so it isnt this messy
-        skillMasteryMaterialCostManager.addSkillMastery(skill);
-        return skillMasteryMaterialCostManager;
     }
 
-    //this functions get given a td tag  of a lot of hyperlink (a) tags
+    //this functions get given a td tag of hyperlinks (a) tags
     //within each a tag there is a div tag that contains the information that we need from the materials
     //todo have this return a materialFactoryManager
+
+    /**
+     * This function takes in a td tag in that can contain multiple ahrefs of materials. This function goes through the
+     * a tags and then breaks them up into pieces that can be used for the code. These pieces include: name of material,
+     * background image, image URl, and finally the quantity of the material.
+     * @param materialElements A List of Div Web Elements in the form of:
+     *                        <div class="material-cell" data-item="Skill Summary - 3" data-link="/arknights/item/skill-summary-3" style="background: url(/arknights/sites/arknights/files/2019-11/item-4_0.png)">
+     *                                 <img class="item-image" src="/arknights/sites/arknights/files/game-images/items/MTL_SKILL3.png">
+     *                                  <span class="material-quantity">x8</span>
+     *                        </div>
+     * @return A Material Factory Manager that contains all of the information.
+     */
     static public MaterialFactoryManager sortThroughMaterials(List<WebElement> materialElements){
+
+
+
         List<MaterialFactory> materialList = new ArrayList<>();
 
         for(WebElement each: materialElements)

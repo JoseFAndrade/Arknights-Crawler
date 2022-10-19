@@ -5,7 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="084325c4-fc18-4c5e-a3d5-904d016ea58e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RequiredExe/chromedriver.exe" beforeDir="false" afterPath="$PROJECT_DIR$/RequiredExe/chromedriver.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Crawler/MaterialCostUtilCrawler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Crawler/MaterialCostUtilCrawler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main/Crawler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main/Crawler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main/Manager/MaterialFactoryManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main/Manager/MaterialFactoryManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main/skill/Skill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main/skill/Skill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main/skill/SkillUtilCrawler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main/skill/SkillUtilCrawler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main/unit/Unit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main/unit/Unit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Main/Crawler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main/Crawler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Main/Manager/MaterialFactoryManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main/Manager/MaterialFactoryManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Main/skill/Skill.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main/skill/Skill.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Main/skill/SkillUtilCrawler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main/skill/SkillUtilCrawler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Main/unit/Unit.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main/unit/Unit.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,11 +77,11 @@
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\javaWorkspace2.0\Arknights Crawler\src\main\java" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
     </key>
   </component>
   <component name="RunManager">
@@ -79,13 +92,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -197,7 +212,22 @@
       <workItem from="1632984887077" duration="2424000" />
       <workItem from="1633401507131" duration="6019000" />
       <workItem from="1633496898135" duration="2912000" />
-      <workItem from="1633571162143" duration="2723000" />
+      <workItem from="1633571162143" duration="3488000" />
+      <workItem from="1633587188105" duration="663000" />
+      <workItem from="1644466153230" duration="1355000" />
+      <workItem from="1644550285584" duration="3379000" />
+      <workItem from="1645581540825" duration="1528000" />
+      <workItem from="1645667077737" duration="8000" />
+      <workItem from="1645678888642" duration="569000" />
+      <workItem from="1645750295557" duration="817000" />
+      <workItem from="1646088147790" duration="2055000" />
+      <workItem from="1646185212766" duration="2783000" />
+      <workItem from="1646355076008" duration="72000" />
+      <workItem from="1653010166039" duration="1124000" />
+      <workItem from="1653096736488" duration="2038000" />
+      <workItem from="1653430370028" duration="633000" />
+      <workItem from="1666049926743" duration="1029000" />
+      <workItem from="1666128876529" duration="6907000" />
     </task>
     <servers />
   </component>

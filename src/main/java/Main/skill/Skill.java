@@ -1,7 +1,6 @@
 package Main.skill;
 
-import Main.util.Util;
-import org.openqa.selenium.WebElement;
+
 import java.util.List;
 
 public class Skill {

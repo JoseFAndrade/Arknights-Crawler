@@ -46,18 +46,18 @@ public class Crawler {
                                 "reserve-operator-melee"
         ));
 
-        List<String> unitUrls = getOperatorUrlList(driver);
+        //List<String> unitUrls = getOperatorUrlList(driver);
 
 
-        /*
+
         List<String> unitUrls = new ArrayList<>(Arrays.asList(//"https://gamepress.gg/arknights/operator/thrm-ex",
                                                              //"https://gamepress.gg/arknights/operator/12f",
                                                             //"https://gamepress.gg/arknights/operator/castle-3",
                                                          //   "https://gamepress.gg/arknights/operator/popukar",
                                                           //  "https://gamepress.gg/arknights/operator/shaw",
-                                                        "https://gamepress.gg/arknights/operator/orchid",
+                                                        //"https://gamepress.gg/arknights/operator/orchid",
                                                             "https://gamepress.gg/arknights/operator/thorns"));
-*/
+
 
 
         for(String eachUrl: unitUrls){
@@ -158,10 +158,11 @@ public class Crawler {
 
         System.out.println("The unit has been created");
         System.out.println("Unit is: "+ unit.getName());
+        System.out.println(unit);
         return unit;
     }
     /*
-    TODO: ADD THESE SHITS TO CONSTANTS
+    TODO: ADD THESE Things TO CONSTANTS
      */
 
 
@@ -178,9 +179,8 @@ public class Crawler {
     }
 
     public String getUnitImageUrl(WebDriver driver, int rarity){
-        //contains e1, e2 images in that order
+        //contains e1, e2, <any skin>,  images in that order
         List<WebElement> cells = driver.findElements(By.xpath(".//div[contains(@class,'operator-image')]"));
-        //the last element from this list will contain the e2 image and that is the only one that I currently care about
         WebElement divElement;
         System.err.println(rarity);
         try{
